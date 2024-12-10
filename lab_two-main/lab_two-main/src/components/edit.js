@@ -12,7 +12,7 @@ export default function Edit(props) {
   const navigate = useNavigate(); // Used to navigate programmatically
 
   useEffect(() => {
-    // Fetch the movie data by ID when the component mounts
+    // Fetch the movie data by ID 
     axios.get('http://localhost:4000/api/movie/' + id)
       .then((response) => {
         setTitle(response.data.title);
