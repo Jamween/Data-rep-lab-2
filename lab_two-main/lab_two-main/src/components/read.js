@@ -1,26 +1,29 @@
-import React from 'react';
-import Movies from "./Movies";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useState, useEffect } from "react";
+import Movies from "./Movies";
 
 function Read() {
-  const [movies, setMovies] = useState([]); // State to store movie data
+  const [data, setData] = useState([]);
 
-  useEffect(() => {
-    // Fetch data from the API
-    axios.get('https://jsonblob.com/api/jsonblob/1287718524221775872')
+  const Reload = () => {
+    console.log("Reloading movie data...");
+    axios.get('http://localhost:4000/api/movies')
       .then((response) => {
-        setMovies(response.data.movies); // Assign the response data to movies state
+        setData(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error("Error reloading data:", error);
       });
-  }, []); // Empty dependency array ensures this runs only once after the component mounts
+  };
+
+  useEffect(() => {
+    Reload(); // Load the data when the component first mounts
+  }, []);
 
   return (
     <div>
-      <h3>Hello from the Read component.</h3>
-      <Movies myMovies={movies} />
+      <h2>Movie List</h2>
+      <Movies myMovies={data} ReloadData={Reload} />
     </div>
   );
 }

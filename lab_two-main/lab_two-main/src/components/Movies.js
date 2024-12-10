@@ -1,14 +1,17 @@
-import React from 'react';
-import MovieItem from './MovieItem';
+import MovieItem from "./MovieItem";
 
-const Movies = (props) => {
+function Movies(props) {
   return (
-    <div>
+    <>
       {props.myMovies.map((movie) => (
-        <MovieItem mymovie={movie} key={movie.imdbID} />
+        <MovieItem
+          myMovie={movie}
+          key={movie._id}
+          Reload={props.ReloadData} // Pass the reload function down
+        />
       ))}
-    </div>
+    </>
   );
-};
+}
 
 export default Movies;
